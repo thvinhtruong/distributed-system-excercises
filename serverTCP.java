@@ -39,6 +39,7 @@ public class serverTCP extends Thread {
         }
     }
     public static void main(String args[]) throws Exception {
+        // run by using the command line: "javac serverTCP.java", and then "java serverTCP 8000"
         int port = Integer.parseInt(args[0]);
         try {
             Thread t = new serverTCP(port);

@@ -15,7 +15,7 @@ class Client {
                 request_to_server = inFromUser.readLine();
                 fibo = (Fibonancci)Naming.lookup(name);
                 for (int i=0; i<Integer.parseInt(request_to_server); i++){
-                    System.out.println(hello.fibbonancci(i));   
+                    System.out.println(fibo.fibbonancci(i));   
                 }
             }
             catch (RemoteException e) {

@@ -1,0 +1,7 @@
+module Exponential
+{ 
+    interface Exp
+    { 
+        int exponential();   
+    };
+};

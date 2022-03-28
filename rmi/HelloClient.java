@@ -1,15 +1,44 @@
 import java.rmi.*;
+import java.io.*;
+import java.net.*;
+import java.lang.NumberFormatException;
 
 class HelloClient {
     public static void main (String[] args) {
+        String request_to_server = "";
         HelloInterface hello;
         String name = "rmi://localhost/HelloServer";
-        try {
-            hello = (HelloInterface)Naming.lookup(name);
-            System.out.println(hello.say());
-        }
-        catch (Exception e) {
-            System.out.println("HelloClient exception: " + e);
+        while (!request_to_server.equals("quit")) {
+            try {
+                System.out.print("Input length of fibbonancci: ");
+                BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+                request_to_server = inFromUser.readLine();
+                hello = (HelloInterface)Naming.lookup(name);
+                System.out.println(hello.say());
+                for (int i=0; i<Integer.parseInt(request_to_server); i++){
+                    System.out.println(hello.fibbonancci(i));   
+                }
+            }
+            catch (RemoteException e) {
+                System.out.println("RemoteException: " + e.getMessage());
+            }
+            catch (NotBoundException e) {
+                System.out.println("NotBoundException: " + e.getMessage());
+            }
+            catch (MalformedURLException e) {
+                System.out.println("MalformedURLException: " + e.getMessage());
+            }
+            catch (NumberFormatException e) {
+                if (e.getMessage().contains("quit")) {
+                    System.out.println("terminate using quit");
+                } else {
+                    System.out.println("NumberFormatException: " + e.getMessage());
+                }
+                
+            }
+            catch (IOException e) {
+                System.out.println("IOException: " + e.getMessage());
+            }
         }
     }
 }
